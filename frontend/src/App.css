@@ -1,0 +1,166 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  color: #111827;
+  background: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  grid-template-rows: 1fr 220px;
+  min-height: 100vh;
+}
+
+.left-panel {
+  grid-row: 1 / span 2;
+  padding: 1rem;
+  border-right: 1px solid #e5e7eb;
+  background: #ffffff;
+  overflow-y: auto;
+}
+
+.panel-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem;
+}
+
+.city-search {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.city-search input {
+  width: 100%;
+}
+
+.city-list,
+.layer-list,
+.site-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.map-section {
+  position: relative;
+  padding: 0.75rem;
+}
+
+.map-canvas {
+  height: 100%;
+  min-height: 480px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+}
+
+.leaflet-root {
+  height: 100%;
+  width: 100%;
+}
+
+.legend,
+.drawer {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.6rem;
+  max-width: 340px;
+}
+
+.legend {
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
+.drawer {
+  bottom: 1.25rem;
+  right: 1.25rem;
+}
+
+.bottom-panel {
+  display: grid;
+  grid-template-columns: 280px 1fr 220px;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.timeslider,
+.charts,
+.status {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.65rem;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.badge-low { background: #6b7280; }
+.badge-medium { background: #f59e0b; }
+.badge-high { background: #16a34a; }
+
+.warning {
+  color: #b45309;
+}
+
+.muted {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.legend-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 0.35rem;
+}
+
+@media (max-width: 1100px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .left-panel {
+    grid-row: auto;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .legend,
+  .drawer {
+    position: static;
+    margin-top: 0.5rem;
+    max-width: none;
+  }
+
+  .bottom-panel {
+    grid-template-columns: 1fr;
+  }
+}
