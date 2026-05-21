@@ -72,13 +72,13 @@ export interface AttributionResult {
 
 export interface ExportRequest {
   job_id: string
-  format: 'report' | 'geojson' | 'csv'
+  format: 'report' | 'geojson' | 'csv' | 'timelapse'
   site_ids: string[]
 }
 
 export interface ExportArtifact {
   job_id: string
-  format: 'report' | 'geojson' | 'csv'
+  format: 'report' | 'geojson' | 'csv' | 'timelapse'
   filename: string
   download_url: string
 }
@@ -90,4 +90,6 @@ export interface AnalysisSummary {
   atmospheric_zones_count: number
   attribution: AttributionResult[]
   layers: LayerMetadata[]
+  temporal_years: number[]
+  temporal_note: string
 }

@@ -3,7 +3,15 @@ from app.models.schemas import ExportArtifact, ExportFormat
 
 class ExportService:
     def create_artifact(self, job_id: str, fmt: ExportFormat) -> ExportArtifact:
-        extension = "json" if fmt == ExportFormat.geojson else "csv" if fmt == ExportFormat.csv else "pdf"
+        extension = (
+            "json"
+            if fmt == ExportFormat.geojson
+            else "csv"
+            if fmt == ExportFormat.csv
+            else "mp4"
+            if fmt == ExportFormat.timelapse
+            else "pdf"
+        )
         return ExportArtifact(
             job_id=job_id,
             format=fmt,

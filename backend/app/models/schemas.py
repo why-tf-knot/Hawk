@@ -100,12 +100,15 @@ class AnalysisSummary(BaseModel):
     atmospheric_zones_count: int
     attribution: list[AttributionResult]
     layers: list[LayerMetadata]
+    temporal_years: list[int]
+    temporal_note: str
 
 
 class ExportFormat(str, Enum):
     report = "report"
     geojson = "geojson"
     csv = "csv"
+    timelapse = "timelapse"
 
 
 class ExportRequest(BaseModel):

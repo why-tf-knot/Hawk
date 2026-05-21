@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
 
-from app.data.demo import demo_timeseries
+from app.data.demo import demo_temporal_years, demo_timeseries
 from app.models.schemas import (
     AnalysisCityRequest,
     AnalysisCityResponse,
@@ -68,6 +68,7 @@ def _run_analysis(job_id: str, payload: AnalysisCityRequest) -> None:
         "zones": [z.model_dump() for z in zones],
         "attribution": [a.model_dump() for a in attribution],
         "layers": [l.model_dump() for l in tile_service.layers_metadata()],
+        "temporal_years": demo_temporal_years(),
     }
 
 
@@ -106,6 +107,8 @@ def analysis_summary(job_id: str) -> AnalysisSummary:
         atmospheric_zones_count=len(payload["zones"]),
         attribution=payload["attribution"],
         layers=payload["layers"],
+        temporal_years=payload["temporal_years"],
+        temporal_note="Temporal interface uses yearly aggregates and coarse atmospheric layers at native scale.",
     )
 
 
@@ -153,4 +156,9 @@ def export_geojson(request: ExportRequest) -> ExportArtifact:
 
 @router.post("/exports/csv", response_model=ExportArtifact)
 def export_csv(request: ExportRequest) -> ExportArtifact:
+    return export_service.create_artifact(request.job_id, request.format)
+
+
+@router.post("/exports/timelapse", response_model=ExportArtifact)
+def export_timelapse(request: ExportRequest) -> ExportArtifact:
     return export_service.create_artifact(request.job_id, request.format)

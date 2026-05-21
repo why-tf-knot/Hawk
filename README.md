@@ -30,6 +30,7 @@ Implemented:
 - `POST /exports/report`
 - `POST /exports/geojson`
 - `POST /exports/csv`
+- `POST /exports/timelapse`
 
 ## Scientific integrity guardrails
 
@@ -37,6 +38,7 @@ The implementation enforces scale-aware interpretation:
 - Sentinel-2/Sentinel-1 are used for surface industrial mapping (fine scale)
 - Sentinel-5P atmospheric products are represented at coarse native resolution and for zone-level interpretation only
 - outputs include resolution and quality metadata
+- temporal coverage years are returned in analysis summary for multi-year evolution views
 - attribution is confidence-scored and probabilistic, not deterministic
 
 ## Environment configuration
@@ -102,4 +104,3 @@ pytest
 - Seed city examples included for local operation
 - Analysis pipeline returns deterministic demo polygons, zone stats, tiles, and time series
 - TODO markers included where model thresholds should be tuned
-

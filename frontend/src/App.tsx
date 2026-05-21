@@ -44,7 +44,7 @@ function App() {
 
   const analyzeCity = async (cityName: string) => {
     setStatus('Submitting analysis...')
-    const analysis = await api.analyzeCity(cityName, '2025-01-01', '2025-03-31')
+    const analysis = await api.analyzeCity(cityName, '2018-01-01', '2025-12-31')
     setJobId(analysis.job_id)
     const summaryResponse = await api.getSummary(analysis.job_id)
     setSummary(summaryResponse)
@@ -88,8 +88,8 @@ function App() {
       </section>
 
       <section className="bottom-panel">
-        <TimeSlider value={timeFrame} onChange={setTimeFrame} />
-        <TrendCharts points={timeseries} />
+        <TimeSlider value={timeFrame} onChange={setTimeFrame} max={Math.max((summary?.temporal_years.length ?? 1) - 1, 1)} />
+        <TrendCharts points={timeseries} availableYears={summary?.temporal_years} note={summary?.temporal_note} />
         <div className="status">{status}</div>
       </section>
     </main>

@@ -27,6 +27,6 @@ export const api = {
   getTimeseries: (jobId: string, siteId: string) => request<TimeSeriesPoint[]>(`/analysis/${jobId}/timeseries?site_id=${siteId}`),
   getTileUrl: (jobId: string, layer: string) => request<{ tile_url: string }>(`/analysis/${jobId}/tiles/${layer}`),
   getLegend: (jobId: string, layer: string) => request<Record<string, unknown>>(`/analysis/${jobId}/legend/${layer}`),
-  exportData: (path: 'report' | 'geojson' | 'csv', body: ExportRequest) =>
+  exportData: (path: 'report' | 'geojson' | 'csv' | 'timelapse', body: ExportRequest) =>
     request<ExportArtifact>(`/exports/${path}`, { method: 'POST', body: JSON.stringify(body) }),
 }

@@ -150,11 +150,23 @@ def demo_attribution(city_id: str) -> list[AttributionResult]:
 
 
 def demo_timeseries(site_id: str) -> list[TimeSeriesPoint]:
-    return [
-        TimeSeriesPoint(date=date(2025, 1, 1), value=0.12, metric="atmospheric anomaly", completeness=0.81, uncertainty=0.04),
-        TimeSeriesPoint(date=date(2025, 2, 1), value=0.14, metric="atmospheric anomaly", completeness=0.79, uncertainty=0.05),
-        TimeSeriesPoint(date=date(2025, 3, 1), value=0.16, metric="atmospheric anomaly", completeness=0.83, uncertainty=0.04),
-    ]
+    start_year = 2018
+    points: list[TimeSeriesPoint] = []
+    for year in range(start_year, 2026):
+        points.append(
+            TimeSeriesPoint(
+                date=date(year, 1, 1),
+                value=0.1 + ((year - start_year) * 0.012),
+                metric="atmospheric anomaly",
+                completeness=0.72 + ((year - start_year) * 0.02),
+                uncertainty=max(0.02, 0.06 - ((year - start_year) * 0.004)),
+            )
+        )
+    return points
+
+
+def demo_temporal_years() -> list[int]:
+    return list(range(2018, 2026))
 
 
 def demo_layers() -> list[LayerMetadata]:
