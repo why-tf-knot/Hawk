@@ -1,3 +1,5 @@
+import type { Geometry } from 'geojson'
+
 export type ConfidenceLevel = 'low' | 'medium' | 'high'
 
 export interface CityAOI {
@@ -6,7 +8,7 @@ export interface CityAOI {
   country: string
   center: [number, number]
   bbox: [number, number, number, number]
-  geojson: GeoJSON.Geometry
+  geojson: Geometry
 }
 
 export interface QualityMetadata {
@@ -39,7 +41,7 @@ export interface IndustrialPolygon {
   class_name: string
   confidence: ConfidenceLevel
   confidence_score: number
-  geometry: GeoJSON.Geometry
+  geometry: Geometry
   metrics: SiteMetrics
   quality: QualityMetadata
 }
@@ -48,7 +50,7 @@ export interface AtmosphericZone {
   zone_id: string
   site_id: string
   zone_type: string
-  geometry: GeoJSON.Geometry
+  geometry: Geometry
   quality: QualityMetadata
 }
 

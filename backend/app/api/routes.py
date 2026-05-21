@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, Query
@@ -44,7 +44,7 @@ def _run_analysis(job_id: str, payload: AnalysisCityRequest) -> None:
         record = cache_service.get_job(job_id)
         if record:
             record.status = "failed"
-            record.finished_at = datetime.utcnow()
+            record.finished_at = datetime.now(UTC)
             record.message = "City not found"
         return
 
@@ -61,7 +61,7 @@ def _run_analysis(job_id: str, payload: AnalysisCityRequest) -> None:
         return
 
     record.status = "completed"
-    record.finished_at = datetime.utcnow()
+    record.finished_at = datetime.now(UTC)
     record.payload = {
         "city": selected.model_dump(),
         "polygons": [p.model_dump() for p in polygons],
@@ -74,7 +74,7 @@ def _run_analysis(job_id: str, payload: AnalysisCityRequest) -> None:
 @router.post("/analysis/city", response_model=AnalysisCityResponse)
 def analyze_city(request: AnalysisCityRequest, background_tasks: BackgroundTasks) -> AnalysisCityResponse:
     job_id = str(uuid4())
-    cache_service.set_job(job_id, JobRecord(status="queued", started_at=datetime.utcnow()))
+    cache_service.set_job(job_id, JobRecord(status="queued", started_at=datetime.now(UTC)))
     background_tasks.add_task(_run_analysis, job_id, request)
     return AnalysisCityResponse(job_id=job_id, status="queued")
 
